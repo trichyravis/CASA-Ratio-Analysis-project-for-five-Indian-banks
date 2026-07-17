@@ -1,0 +1,27 @@
+bank,bank_type,fiscal_year,reporting_date,casa_ratio_pct,basis,source_id,notes
+State Bank of India,Public Sector,FY2021,2021-03-31,46.13,Period-end,SBI_AR21,Domestic CASA ratio
+State Bank of India,Public Sector,FY2022,2022-03-31,45.28,Period-end,SBI_AR22,Domestic CASA ratio
+State Bank of India,Public Sector,FY2023,2023-03-31,43.80,Period-end,SBI_AR23,Domestic CASA ratio
+State Bank of India,Public Sector,FY2024,2024-03-31,41.11,Period-end,SBI_AR24,Domestic CASA ratio
+State Bank of India,Public Sector,FY2025,2025-03-31,39.97,Period-end,SBI_AR25,Domestic CASA ratio
+HDFC Bank,Private Sector,FY2021,2021-03-31,46.10,Period-end,HDFC_AR21,CASA deposits as percentage of total deposits
+HDFC Bank,Private Sector,FY2022,2022-03-31,48.20,Period-end,HDFC_AR22,CASA deposits as percentage of total deposits
+HDFC Bank,Private Sector,FY2023,2023-03-31,44.40,Period-end,HDFC_AR23,CASA deposits as percentage of total deposits
+HDFC Bank,Private Sector,FY2024,2024-03-31,38.20,Period-end,HDFC_AR24,Post-merger balance sheet; prior years are not strictly comparable
+HDFC Bank,Private Sector,FY2025,2025-03-31,37.86,Period-end,HDFC_AR25,Calculated from disclosed CASA deposits divided by total deposits
+ICICI Bank,Private Sector,FY2021,2021-03-31,46.10,Period-end,ICICI_AR21,Period-end CASA ratio
+ICICI Bank,Private Sector,FY2022,2022-03-31,48.70,Period-end,ICICI_AR22,Period-end CASA ratio
+ICICI Bank,Private Sector,FY2023,2023-03-31,43.60,Period-end,ICICI_AR23,Period-end CASA ratio
+ICICI Bank,Private Sector,FY2024,2024-03-31,43.40,Period-end,ICICI_AR24,Period-end CASA ratio
+ICICI Bank,Private Sector,FY2025,2025-03-31,41.80,Period-end,ICICI_AR25,Period-end CASA ratio
+Axis Bank,Private Sector,FY2021,2021-03-31,45.00,Period-end (MEB),AXIS_AR21,March-end balance basis
+Axis Bank,Private Sector,FY2022,2022-03-31,45.00,Period-end (MEB),AXIS_AR22,March-end balance basis
+Axis Bank,Private Sector,FY2023,2023-03-31,44.00,Period-end (MEB),AXIS_AR23,March-end balance basis
+Axis Bank,Private Sector,FY2024,2024-03-31,43.00,Period-end (MEB),AXIS_AR24,March-end balance basis
+Axis Bank,Private Sector,FY2025,2025-03-31,41.00,Period-end (MEB),AXIS_Q4FY25,Axis separately disclosed QAB CASA of 38%
+Kotak Mahindra Bank,Private Sector,FY2021,2021-03-31,60.40,Period-end,KOTAK_AR21,Period-end CASA ratio
+Kotak Mahindra Bank,Private Sector,FY2022,2022-03-31,60.70,Period-end,KOTAK_AR22,Period-end CASA ratio
+Kotak Mahindra Bank,Private Sector,FY2023,2023-03-31,52.80,Period-end,KOTAK_AR23,Period-end CASA ratio
+Kotak Mahindra Bank,Private Sector,FY2024,2024-03-31,45.50,Period-end,KOTAK_AR24,Period-end CASA ratio
+Kotak Mahindra Bank,Private Sector,FY2025,2025-03-31,43.00,Period-end,KOTAK_AR25,Period-end CASA ratio
+
