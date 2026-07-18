@@ -255,23 +255,49 @@ def interpret_score(score: float) -> tuple[str, str]:
 
 # ── Plotly template ──────────────────────────────────────────────────────────
 def mp_layout(**kwargs):
-    """Return Mountain Path branded layout defaults."""
-    base = dict(
+    """Return Mountain Path branded layout defaults.
+
+    Merges underscore-separated axis/legend kwargs (e.g. yaxis_ticksuffix)
+    into their nested dicts so newer Plotly versions don't choke on mixed
+    flat + nested keys for the same property.
+    """
+    base_xaxis = dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f")
+    base_yaxis = dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f")
+    base_legend = dict(
+        bgcolor="rgba(17,34,64,0.5)",
+        bordercolor=f"{GOLD}30",
+        borderwidth=1,
+        font=dict(color=TEXT_LIGHT, size=11),
+    )
+
+    # Pull out any underscore-separated overrides and merge into nested dicts
+    clean = {}
+    for k, v in kwargs.items():
+        if k.startswith("xaxis_"):
+            base_xaxis[k.removeprefix("xaxis_")] = v
+        elif k.startswith("yaxis_"):
+            base_yaxis[k.removeprefix("yaxis_")] = v
+        elif k.startswith("legend_"):
+            base_legend[k.removeprefix("legend_")] = v
+        elif k == "xaxis" and isinstance(v, dict):
+            base_xaxis.update(v)
+        elif k == "yaxis" and isinstance(v, dict):
+            base_yaxis.update(v)
+        elif k == "legend" and isinstance(v, dict):
+            base_legend.update(v)
+        else:
+            clean[k] = v
+
+    return dict(
         plot_bgcolor="rgba(17,34,64,0.6)",
         paper_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter, sans-serif", color=TEXT_LIGHT, size=12),
         margin=dict(t=40, l=50, r=30, b=40),
-        legend=dict(
-            bgcolor="rgba(17,34,64,0.5)",
-            bordercolor=f"{GOLD}30",
-            borderwidth=1,
-            font=dict(color=TEXT_LIGHT, size=11),
-        ),
-        xaxis=dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f"),
-        yaxis=dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f"),
+        legend=base_legend,
+        xaxis=base_xaxis,
+        yaxis=base_yaxis,
+        **clean,
     )
-    base.update(kwargs)
-    return base
 
 
 # ── Load data ────────────────────────────────────────────────────────────────
