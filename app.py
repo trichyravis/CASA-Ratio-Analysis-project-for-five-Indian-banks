@@ -254,6 +254,15 @@ def interpret_score(score: float) -> tuple[str, str]:
 
 
 # ── Plotly template ──────────────────────────────────────────────────────────
+def hex_to_rgba(hex_color: str, alpha: float) -> str:
+    """Convert #RRGGBB to a Plotly-compatible rgba() colour."""
+    value = hex_color.lstrip("#")
+    if len(value) != 6:
+        return f"rgba(37,99,235,{alpha})"
+    red, green, blue = (int(value[i : i + 2], 16) for i in (0, 2, 4))
+    return f"rgba({red},{green},{blue},{alpha})"
+
+
 def mp_layout(**kwargs):
     """Return Mountain Path branded layout defaults.
 
@@ -265,7 +274,7 @@ def mp_layout(**kwargs):
     base_yaxis = dict(gridcolor="#1e3a5f", zerolinecolor="#1e3a5f")
     base_legend = dict(
         bgcolor="rgba(17,34,64,0.5)",
-        bordercolor=f"{GOLD}30",
+        bordercolor="rgba(255,215,0,0.19)",
         borderwidth=1,
         font=dict(color=TEXT_LIGHT, size=11),
     )
@@ -433,7 +442,7 @@ with tab1:
             line=dict(color=GOLD, width=2.5, dash="dash"),
         )
         fig.update_layout(**mp_layout(height=500, hovermode="x unified", yaxis_ticksuffix="%"))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with b:
         rank = latest.sort_values("casa_ratio_pct")
@@ -448,7 +457,7 @@ with tab1:
         fig.add_vline(x=industry_avg, line_dash="dash", line_color=GOLD, line_width=2,
                       annotation_text=f"Avg {industry_avg:.1f}%", annotation_font_color=GOLD)
         fig.update_layout(**mp_layout(height=500, showlegend=False, xaxis_ticksuffix="%"))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     # YoY waterfall for the full peer set
     st.markdown(f"### Year-over-Year Change Waterfall")
@@ -471,7 +480,7 @@ with tab1:
         )
         fig.add_hline(y=0, line_color=MUTED, line_width=1)
         fig.update_layout(**mp_layout(height=380))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 
 # ═══════════════════════ TAB 2: TREND ANALYTICS ════════════════════════════
@@ -487,7 +496,7 @@ with tab2:
         )
     )
     heat.update_layout(**mp_layout(height=400))
-    st.plotly_chart(heat, use_container_width=True)
+    st.plotly_chart(heat, width="stretch")
 
     # Regression trend with confidence bands
     st.markdown("### OLS Trend Regression with Confidence Bands")
@@ -518,11 +527,11 @@ with tab2:
             fig.add_scatter(
                 x=list(bd["fiscal_year"]) + list(bd["fiscal_year"])[::-1],
                 y=list(y_pred + ci_95) + list(y_pred - ci_95)[::-1],
-                fill="toself", fillcolor=f"{color}15", line=dict(width=0),
+                fill="toself", fillcolor=hex_to_rgba(color, 0.08), line=dict(width=0),
                 name=f"{BANK_SHORT.get(bank, bank)} ±95% CI", showlegend=False,
             )
     fig.update_layout(**mp_layout(height=500, yaxis_ticksuffix="%", yaxis_title="CASA Ratio (%)", hovermode="x unified"))
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Summary statistics table
     st.markdown("### Descriptive Statistics")
@@ -532,7 +541,7 @@ with tab2:
             "Latest (%)": "{:.2f}", "Mean (%)": "{:.2f}", "Std Dev (pp)": "{:.2f}",
             "CV (%)": "{:.1f}", "Trend (pp/yr)": "{:+.2f}", "R²": "{:.3f}", "Total Δ (pp)": "{:+.2f}",
         }).background_gradient(subset=["Trend (pp/yr)"], cmap="RdYlGn", vmin=-5, vmax=2),
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
 
 
@@ -590,7 +599,7 @@ with tab3:
             r=vals, theta=radar_labels + [radar_labels[0]],
             fill="toself", name=BANK_SHORT.get(row["Bank"], row["Bank"]),
             line=dict(color=BANK_COLORS.get(row["Bank"], "#2563EB"), width=2),
-            fillcolor=f"{BANK_COLORS.get(row['Bank'], '#2563EB')}20",
+            fillcolor=hex_to_rgba(BANK_COLORS.get(row["Bank"], "#2563EB"), 0.13),
         ))
     fig.update_layout(
         polar=dict(
@@ -600,7 +609,7 @@ with tab3:
         ),
         **mp_layout(height=480, legend=dict(bgcolor="rgba(17,34,64,0.5)", font=dict(color=TEXT_LIGHT))),
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
     # Risk table with all metrics
     st.markdown("### Full Risk Metrics Table")
@@ -616,7 +625,7 @@ with tab3:
             "Max Drawdown (pp)": "{:+.2f}", "Worst YoY (pp)": "{:+.2f}", "Best YoY (pp)": "{:+.2f}",
             "Quality Score": "{:.0f}",
         }),
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
 
     # Volatility clustering
@@ -635,7 +644,7 @@ with tab3:
         )
         fig.add_hline(y=0, line_dash="dash", line_color=MUTED)
         fig.update_layout(**mp_layout(height=400, showlegend=False, xaxis_title=""))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 
 # ═══════════════════════ TAB 4: BANK DEEP DIVE ════════════════════════════
@@ -663,7 +672,7 @@ with tab4:
         fig.add_scatter(
             x=bd["fiscal_year"], y=bd["casa_ratio_pct"],
             mode="lines+markers", name="CASA Ratio",
-            fill="tozeroy", fillcolor=f"{color}15",
+            fill="tozeroy", fillcolor=hex_to_rgba(color, 0.08),
             line=dict(color=color, width=3), marker=dict(size=10, color=color),
         )
         # Trend line
@@ -683,7 +692,7 @@ with tab4:
             name="Peer Average", line=dict(color=MUTED, width=1.5, dash="dot"),
         )
         fig.update_layout(**mp_layout(height=420, yaxis_ticksuffix="%", yaxis_title="CASA Ratio (%)"))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with y:
         # Peer rank position over time
@@ -700,10 +709,10 @@ with tab4:
                 rank_df_plot, x="Year", y="Rank", text="Rank",
                 color_discrete_sequence=[color],
             )
-            fig.update_yaxis(autorange="reversed", dtick=1, title="Rank (1=Highest)")
+            fig.update_yaxes(autorange="reversed", dtick=1, title="Rank (1=Highest)")
             fig.update_traces(textposition="outside")
             fig.update_layout(**mp_layout(height=420))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     # Interpretive commentary
     st.markdown("#### Analytical Commentary")
@@ -763,7 +772,7 @@ with tab5:
         if show_labels:
             fig.update_traces(texttemplate="%{y:.1f}%", textposition="top center")
         fig.update_layout(**mp_layout(height=420, yaxis_ticksuffix="%", hovermode="x unified"))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
         # Convergence / divergence analysis
         st.markdown("### Sector Convergence Analysis")
@@ -777,7 +786,7 @@ with tab5:
             )
             fig.add_hline(y=0, line_dash="dash", line_color=MUTED)
             fig.update_layout(**mp_layout(height=350, showlegend=False))
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
             latest_spread = sector_pivot["Spread (pp)"].iloc[-1]
             if latest_spread > 0:
@@ -811,7 +820,7 @@ with tab5:
             )
         )
         fig.update_layout(**mp_layout(height=400))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
         st.markdown(
             "<div class='info-box'>High positive correlations suggest sector-wide macro drivers "
             "(rate cycles, regulatory policy) dominate. Low or negative correlations indicate "
@@ -827,7 +836,7 @@ with tab6:
     display_cols = ["bank", "fiscal_year", "reporting_date", "casa_ratio_pct", "basis", "notes", "document", "source_url"]
     available_cols = [c for c in display_cols if c in joined.columns]
     st.dataframe(
-        joined[available_cols], use_container_width=True, hide_index=True,
+        joined[available_cols], width="stretch", hide_index=True,
         column_config={"source_url": st.column_config.LinkColumn("Official Source")},
     )
 

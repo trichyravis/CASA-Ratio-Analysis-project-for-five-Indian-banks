@@ -1,6 +1,6 @@
 # Indian Bank CASA Ratio Analytics
 
-A classroom-ready Streamlit dashboard comparing the period-end CASA ratios of SBI, HDFC Bank, ICICI Bank, Axis Bank and Kotak Mahindra Bank over FY2021–FY2025.
+A classroom-ready Streamlit dashboard comparing the period-end CASA ratios of SBI, HDFC Bank, ICICI Bank, Axis Bank and Kotak Mahindra Bank over FY2021–FY2025. The complete Mountain Path visual design is embedded directly in `app.py`; no separate stylesheet is required.
 
 ## Why the app does not call CASA “live market data”
 
@@ -60,4 +60,3 @@ Never mix average/QAB CASA with period-end/MEB CASA in a single trend without cl
 ## Disclaimer
 
 Official bank disclosures are the source of record. Recheck the linked report before using the dataset for investment, regulatory or publication purposes. The dashboard is educational and is not investment advice.
-
