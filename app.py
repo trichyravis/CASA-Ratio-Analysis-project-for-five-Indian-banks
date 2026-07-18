@@ -406,7 +406,7 @@ with tab1:
             mode="lines", name="Peer Average",
             line=dict(color=GOLD, width=2.5, dash="dash"),
         )
-        fig.update_layout(**mp_layout(height=500, hovermode="x unified", legend_title=None, yaxis_ticksuffix="%"))
+        fig.update_layout(**mp_layout(height=500, hovermode="x unified", yaxis_ticksuffix="%"))
         st.plotly_chart(fig, use_container_width=True)
 
     with b:
@@ -444,7 +444,7 @@ with tab1:
             color_discrete_map={v: BANK_COLORS[k] for k, v in BANK_SHORT.items() if k in BANK_COLORS},
         )
         fig.add_hline(y=0, line_color=MUTED, line_width=1)
-        fig.update_layout(**mp_layout(height=380, legend_title=None))
+        fig.update_layout(**mp_layout(height=380))
         st.plotly_chart(fig, use_container_width=True)
 
 
@@ -736,7 +736,7 @@ with tab5:
         )
         if show_labels:
             fig.update_traces(texttemplate="%{y:.1f}%", textposition="top center")
-        fig.update_layout(**mp_layout(height=420, yaxis_ticksuffix="%", hovermode="x unified", legend_title=None))
+        fig.update_layout(**mp_layout(height=420, yaxis_ticksuffix="%", hovermode="x unified"))
         st.plotly_chart(fig, use_container_width=True)
 
         # Convergence / divergence analysis
