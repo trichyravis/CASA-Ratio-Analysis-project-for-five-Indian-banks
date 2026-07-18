@@ -58,6 +58,38 @@ st.markdown(
 .stApp { background: linear-gradient(135deg, #0a192f 0%, #112240 50%, #1a2332 100%); color: #e6f1ff; font-family: 'Inter', sans-serif; }
 .block-container { padding-top: 1.2rem; max-width: 1480px; }
 
+/* Sidebar — force Mountain Path dark theme irrespective of Streamlit defaults */
+section[data-testid="stSidebar"],
+[data-testid="stSidebarContent"] {
+    background: linear-gradient(180deg, #0a192f 0%, #112240 100%) !important;
+    color: #e6f1ff !important;
+}
+section[data-testid="stSidebar"] { border-right: 1px solid #1e3a5f !important; }
+section[data-testid="stSidebar"] p,
+section[data-testid="stSidebar"] span:not([data-baseweb="tag"] span),
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    color: #ADD8E6 !important;
+    -webkit-text-fill-color: #ADD8E6 !important;
+}
+section[data-testid="stSidebar"] hr { border-color: #1e3a5f !important; }
+
+/* Inputs, upload control, multiselect chips, sliders and toggles */
+[data-testid="stFileUploaderDropzone"] {
+    background: #112240 !important; border: 1px dashed #FFD700 !important;
+}
+[data-testid="stFileUploaderDropzone"] button,
+section[data-testid="stSidebar"] button {
+    background: #003366 !important; color: #FFD700 !important;
+    border: 1px solid #FFD700 !important;
+}
+[data-baseweb="select"] > div { background: #112240 !important; border-color: #1e3a5f !important; color: #e6f1ff !important; }
+[data-baseweb="tag"] { background: #003366 !important; border: 1px solid #FFD700 !important; }
+[data-baseweb="tag"] span { color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important; }
+[data-testid="stSlider"] [role="slider"] { background: #FFD700 !important; }
+[data-testid="stSlider"] div[data-baseweb="slider"] > div > div { background-color: #FFD700 !important; }
+[data-testid="stToggle"] [data-checked="true"] { background: #003366 !important; }
+
 /* Hero banner */
 .hero-banner {
     padding: 32px 40px; border-radius: 16px; color: #e6f1ff;
@@ -99,12 +131,83 @@ st.markdown(
 .risk-card p { color: #8892b0; margin: 0; font-size: 0.88rem; }
 
 /* Tabs */
-.stTabs [data-baseweb="tab-list"] { gap: 4px; background: #0a192f; border-radius: 10px; padding: 4px; }
-.stTabs [data-baseweb="tab"] { color: #8892b0; border-radius: 8px; padding: 8px 16px; }
-.stTabs [aria-selected="true"] { background: #003366 !important; color: #FFD700 !important; }
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px; background: #0a192f; border: 1px solid #1e3a5f;
+    border-radius: 10px; padding: 5px; flex-wrap: wrap;
+}
+.stTabs button[role="tab"] {
+    background-color: #112240 !important;
+    border: 1px solid #1e3a5f !important;
+    opacity: 1 !important;
+}
+.stTabs button[role="tab"] * {
+    color: #ADD8E6 !important; -webkit-text-fill-color: #ADD8E6 !important;
+}
+.stTabs button[role="tab"][aria-selected="true"] {
+    background-color: #003366 !important; border-color: #FFD700 !important;
+}
+.stTabs button[role="tab"][aria-selected="true"] * {
+    color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important;
+}
+.stTabs [data-baseweb="tab"] {
+    background: #112240 !important; color: #ADD8E6 !important;
+    border: 1px solid #1e3a5f !important; border-radius: 8px !important;
+    padding: 8px 14px !important; opacity: 1 !important;
+}
+.stTabs [data-baseweb="tab"] p,
+.stTabs [data-baseweb="tab"] span,
+.stTabs [data-baseweb="tab"] div {
+    color: #ADD8E6 !important;
+    -webkit-text-fill-color: #ADD8E6 !important;
+    opacity: 1 !important;
+    font-weight: 600 !important;
+}
+.stTabs [data-baseweb="tab"]:hover {
+    background: #004d80 !important; border-color: #FFD700 !important;
+}
+.stTabs [data-baseweb="tab"]:hover p,
+.stTabs [data-baseweb="tab"]:hover span,
+.stTabs [data-baseweb="tab"]:hover div {
+    color: #FFFFFF !important; -webkit-text-fill-color: #FFFFFF !important;
+}
+.stTabs [aria-selected="true"] {
+    background: #003366 !important; color: #FFD700 !important;
+    border: 1px solid #FFD700 !important;
+}
+.stTabs [aria-selected="true"] p,
+.stTabs [aria-selected="true"] span,
+.stTabs [aria-selected="true"] div {
+    color: #FFD700 !important;
+    -webkit-text-fill-color: #FFD700 !important;
+    font-weight: 700 !important;
+}
+.stTabs [data-baseweb="tab-border"] { display: none !important; }
 
 /* Tables */
 .stDataFrame { border-radius: 10px; overflow: hidden; }
+
+/* Download buttons */
+.stDownloadButton > button,
+[data-testid="stDownloadButton"] button {
+    background: #003366 !important;
+    color: #FFD700 !important;
+    border: 2px solid #FFD700 !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 0.55rem 1.15rem !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
+}
+.stDownloadButton > button:hover,
+[data-testid="stDownloadButton"] button:hover {
+    background: #004d80 !important;
+    color: #FFFFFF !important;
+    border-color: #FFD700 !important;
+}
+.stDownloadButton > button p,
+[data-testid="stDownloadButton"] button p {
+    color: inherit !important;
+    font-weight: 700 !important;
+}
 
 /* Profile card */
 .profile-card {
@@ -174,6 +277,43 @@ def validate(d):
     if {"bank", "fiscal_year"}.issubset(d) and d.duplicated(["bank", "fiscal_year"]).any():
         issues.append("Duplicate bank–year observations found.")
     return issues
+
+
+def read_uploaded_data(uploaded_file) -> pd.DataFrame:
+    """Read a user-supplied CSV or Excel workbook."""
+    suffix = Path(uploaded_file.name).suffix.lower()
+    if suffix == ".xlsx":
+        uploaded = pd.read_excel(uploaded_file, engine="openpyxl")
+    else:
+        uploaded = pd.read_csv(uploaded_file)
+    uploaded["reporting_date"] = pd.to_datetime(uploaded["reporting_date"], errors="raise")
+    return uploaded
+
+
+def dataframe_to_excel(dataframe: pd.DataFrame, sheet_name: str) -> bytes:
+    """Return a professionally formatted in-memory Excel workbook."""
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="openpyxl") as writer:
+        dataframe.to_excel(writer, index=False, sheet_name=sheet_name)
+        worksheet = writer.sheets[sheet_name]
+        worksheet.freeze_panes = "A2"
+        worksheet.auto_filter.ref = worksheet.dimensions
+
+        from openpyxl.styles import Alignment, Font, PatternFill
+
+        header_fill = PatternFill("solid", fgColor="003366")
+        header_font = Font(color="FFD700", bold=True)
+        for cell in worksheet[1]:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        for column in worksheet.columns:
+            letter = column[0].column_letter
+            maximum = max(len(str(cell.value or "")) for cell in column)
+            worksheet.column_dimensions[letter].width = min(max(maximum + 2, 12), 55)
+
+    return output.getvalue()
 
 
 # ── Analytics helpers ────────────────────────────────────────────────────────
@@ -323,11 +463,15 @@ with st.sidebar:
     st.markdown(f"<span style='color:{GOLD};font-weight:600'>Analysis Controls</span>", unsafe_allow_html=True)
 
     upload = st.file_uploader(
-        "Upload custom dataset",
-        type="csv",
-        help="CSV with columns: bank, fiscal_year, reporting_date, casa_ratio_pct, basis, source_id",
+        "Upload custom dataset (Excel or CSV)",
+        type=["xlsx", "csv"],
+        help="Excel/CSV columns: bank, fiscal_year, reporting_date, casa_ratio_pct, basis, source_id",
     )
-    data = pd.read_csv(upload, parse_dates=["reporting_date"]) if upload else default.copy()
+    try:
+        data = read_uploaded_data(upload) if upload else default.copy()
+    except Exception as exc:
+        st.error(f"Could not read the uploaded file: {exc}")
+        st.stop()
     problems = validate(data)
     if problems:
         for p in problems:
@@ -371,6 +515,7 @@ st.markdown(
     <h1>Indian Bank CASA Ratio Analytics</h1>
     <p class='subtitle'>Deposit franchise quality assessment · Peer benchmarking · Risk decomposition · Source-level audit trail</p>
     <div style='display:flex;align-items:center;gap:16px;margin-top:10px;flex-wrap:wrap'>
+        <span class='badge'>Build 3 · Excel enabled · Dark theme</span>
         <span class='badge'>5 Banks · FY2021–FY2025 · Period-end basis</span>
         <span style='color:{MUTED};font-size:0.82rem'>
             By <a href='https://www.linkedin.com/in/trichyravis' target='_blank' style='color:{LIGHT_BLUE};text-decoration:none'>
@@ -842,11 +987,21 @@ with tab6:
 
     col_dl1, col_dl2 = st.columns(2)
     with col_dl1:
-        st.download_button("⬇ Download filtered data", df.to_csv(index=False).encode(), "filtered_casa_ratios.csv", "text/csv")
+        st.download_button(
+            "⬇ Download filtered data (Excel)",
+            dataframe_to_excel(df, "CASA Data"),
+            "filtered_casa_ratios.xlsx",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
     with col_dl2:
         # Export risk metrics
         export_risk = risk_df.drop(columns=["Short", "Grade Color"], errors="ignore")
-        st.download_button("⬇ Download risk metrics", export_risk.to_csv(index=False).encode(), "casa_risk_metrics.csv", "text/csv")
+        st.download_button(
+            "⬇ Download risk metrics (Excel)",
+            dataframe_to_excel(export_risk, "Risk Metrics"),
+            "casa_risk_metrics.xlsx",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
 
     st.markdown("### Data Quality Controls")
     checks = [
